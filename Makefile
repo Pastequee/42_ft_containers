@@ -1,19 +1,19 @@
 PROJECT	= ft_containers
 
 ### COMPILATION ###
-CC		= cc
+CC		= c++
 AR		= ar rc
-CFLAGS	= -Wall -Wextra
+CFLAGS	= -Wall -Wextra -std=c++98
 CFLAGS	+= -MMD -MP
-INCLUDE	= -I$(H_DIR)
-LFLAGS	= 
-LINKS	= 
+INCLUDE	= -I$(H_DIR) -I$(TEST_DIR)
+LFLAGS	=
+LINKS	=
 VFLAGS	=
 
 ### EXECUTABLE ###
-TEST	= $(OBJ_DIR)/tests
-NAME	= $(PROJECT).a
-ARGS	= 
+TEST	= $(OBJ_DIR)/test_bin
+NAME	= lib$(PROJECT).a
+ARGS	=
 
 ### ENV VARIABLES ###
 -include .env
@@ -51,8 +51,10 @@ H_DIR		= incl
 ### SOURCE FILES ###
 SRCS	=	stack.cpp
 
-T_SRCS	=	tests/core/run_tests.cpp \
-			test/main.c \
+T_SRCS	=	tests/main.cpp \
+			tests/core/Test.cpp \
+			tests/core/Config.cpp \
+			tests/core/run_tests.cpp \
 
 ### OBJECTS ###
 OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
@@ -75,7 +77,6 @@ WHITE	= \033[1;37m
 UNAME_S = $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
 	VALGRIND	= leaks --list --groupByType --atExit --
-	LFLAGS		+= -L/usr/X11/lib
 else
 	VALGRIND	= valgrind --track-origins=yes --leak-check=full
 endif
@@ -98,8 +99,8 @@ $(OBJ_DIR)/$(TEST_DIR)/%.o: $(TEST_DIR)/%.cpp
 	@$(CC) $(CFLAGS) $(INCLUDE) $(VFLAGS) -c $< -o $@
 	@echo "$(PROJECT): $(BLUE)Creating test object file -> $(WHITE)$(notdir $@)... $(GREEN)[Done]$(RESET)"
 
-$(TEST): $(T_OBJS)
-	@$(CC) $(CFLAGS) $(LFLAGS) $(OBJS) $(LINKS) -o $(NAME)
+$(TEST): $(NAME) $(T_OBJS)
+	@$(CC) $(CFLAGS) $(LFLAGS) $(T_OBJS) $(OBJS) -o $(TEST)
 	@echo "$(PROJECT): $(BLUE)Test binary created -> $(WHITE)$(notdir $@)... $(GREEN)[Done]$(RESET)"
 
 run: $(NAME)
@@ -108,7 +109,7 @@ run: $(NAME)
 val: $(NAME)
 	@$(VALGRIND) ./$(NAME) $(ARGS)
 
-test: $(NAME) $(TEST)
+test: $(TEST)
 	@./$(TEST)
 
 info:
@@ -118,6 +119,7 @@ info:
 	@echo "$(BLUE)LFLAGS$(RESET): $(LFLAGS)"
 	@echo "$(BLUE)LINKS$(RESET): $(LINKS)"
 	@echo "$(BLUE)SRCS$(RESET): $(SRCS)"
+	@echo "$(BLUE)T_SRCS$(RESET): $(T_SRCS)"
 
 clean:
 	@echo "$(PROJECT): $(RED)Supressing object files$(RESET)"
@@ -128,8 +130,9 @@ fclean:	clean
 	@rm -f $(NAME)
 
 re:	fclean
-	$(MAKE) all
+	@$(MAKE) all
 
 .PHONY:	all clean fclean re
 
 -include $(DEPS)
+-include $(T_DEPS)

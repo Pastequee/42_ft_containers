@@ -1,11 +1,8 @@
 namespace ft {
-	class Oui {
+	class Stack {
 		public:
-		Oui(void) {
-			this->i = 0;
-		}
 
 		private:
-		int	i;
+
 	};
 }
