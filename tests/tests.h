@@ -18,4 +18,4 @@
 
 void	run_tests(std::vector<Test*> tests, Config& config);
 void __assert_str_rtn(const char *s1, const char *s2, const char *file,
-					  const char *function, int line);
+						const char *function, int line);

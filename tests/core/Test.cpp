@@ -14,7 +14,6 @@ Test::Test(void)
 
 Test::Test(std::string name, fun_ptr fun)
 {
-	std::cout << "Creating a new test " << name << std::endl;
 	this->name = name;
 	this->fun = fun;
 	this->pid = 0;
@@ -23,7 +22,6 @@ Test::Test(std::string name, fun_ptr fun)
 	this->failed = false;
 	this->stdout = 1;
 	this->stdout = 2;
-	std::cout << "Done !" << std::endl;
 }
 
 Test::Test(const Test& test)
@@ -42,7 +40,7 @@ Test& Test::operator=(const Test& test)
 	return (*this);
 }
 
-Test::~Test(void) 
+Test::~Test(void)
 {
 	if (this->stdout != STDOUT_FILENO)
 		close(this->stdout);
@@ -153,7 +151,7 @@ void	Test::print_trace(void)
 static int	settimeout(int pid, uint timeout)
 {
 	int	pid2;
-	
+
 	pid2 = fork();
 	if (pid2 == 0) {
 		usleep(timeout * 1000);

@@ -18,7 +18,6 @@ int	main(void)
 
 	tests.push_back(new Test("test::test1", &test1));
 	tests.push_back(new Test("test::test2", &test2));
-
 	run_tests(tests, config);
 	return (0);
 }

@@ -6,14 +6,14 @@ AR		= ar rc
 CFLAGS	= -Wall -Wextra -std=c++98
 CFLAGS	+= -MMD -MP
 INCLUDE	= -I$(H_DIR) -I$(TEST_DIR)
-LFLAGS	= 
-LINKS	= 
+LFLAGS	=
+LINKS	=
 VFLAGS	=
 
 ### EXECUTABLE ###
 TEST	= $(OBJ_DIR)/test_bin
 NAME	= lib$(PROJECT).a
-ARGS	= 
+ARGS	=
 
 ### ENV VARIABLES ###
 -include .env
