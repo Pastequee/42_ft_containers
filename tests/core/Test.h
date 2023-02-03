@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <sys/wait.h>
-#include <thread>
+#include <iomanip>
 
 #include "Config.h"
 #include "color.h"
@@ -46,3 +46,5 @@ class Test {
 		int			stdout;
 		int			stderr;
 };
+
+std::string	print_time(double time);

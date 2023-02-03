@@ -95,7 +95,8 @@ void	Test::print_banner(void) const
 		state = GREEN "PASS" RESET;
 	else
 		state = RED "FAIL" RESET;
-	std::cout << "        " << state << " [" << "s]        " << BLUE + this->name + RESET;
+	std::cout << std::fixed << std::setprecision(2);
+	std::cout << "        " << state << " [" << print_time(this->time) << "s]        " << BLUE + this->name + RESET;
 	if (WIFSIGNALED(this->status)) {
 		std::string	sig;
 		if (this->exit_code == SIGSEGV)
@@ -199,4 +200,17 @@ bool	Test::exec(const Config& config)
 		this->failed = true;
 	print_trace();
 	return (true);
+}
+
+std::string	print_time(double time)
+{
+	if (time >= 100) {
+		std::cout << " >=100";
+		return "";
+	}
+	std::cout << std::fixed << std::setprecision(3);
+	if (time < 10)
+		std::cout << " ";
+	std::cout << time;
+	return "";
 }

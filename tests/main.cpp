@@ -8,7 +8,7 @@ void	test1(void)
 
 void	test2(void)
 {
-	while (1);
+	while (1) continue;
 }
 
 int	main(void)
@@ -18,6 +18,7 @@ int	main(void)
 
 	tests.push_back(new Test("test::test1", &test1));
 	tests.push_back(new Test("test::test2", &test2));
+	config.setStopOnFail(false);
 	run_tests(tests, config);
 	return (0);
 }
