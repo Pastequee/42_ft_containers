@@ -1,11 +1,9 @@
 namespace ft {
-	class Oui {
-		public:
-		Oui(void) {
-			this->i = 0;
-		}
+class Oui {
+public:
+  Oui(void) { this->i = 0; }
 
-		private:
-		int	i;
-	};
-}
+private:
+  int i;
+};
+} // namespace ft
