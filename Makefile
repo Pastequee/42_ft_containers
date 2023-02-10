@@ -2,7 +2,7 @@ PROJECT	= ft_containers
 
 ### COMPILATION ###
 CC		= c++
-AR		= ar rc
+AR		= ar rcs
 CFLAGS	= -Wall -Wextra -std=c++98
 CFLAGS	+= -MMD -MP
 INCLUDE	= -I$(H_DIR) -I$(TEST_DIR)
@@ -100,7 +100,7 @@ $(OBJ_DIR)/$(TEST_DIR)/%.o: $(TEST_DIR)/%.cpp
 	@echo "$(PROJECT): $(BLUE)Creating test object file -> $(WHITE)$(notdir $@)... $(GREEN)[Done]$(RESET)"
 
 $(TEST): $(NAME) $(T_OBJS)
-	@$(CC) $(CFLAGS) $(LFLAGS) $(T_OBJS) $(OBJS) -o $(TEST)
+	@$(CC) $(CFLAGS) $(LFLAGS) -L. $(T_OBJS) -l$(PROJECT) -o $(TEST)
 	@echo "$(PROJECT): $(BLUE)Test binary created -> $(WHITE)$(notdir $@)... $(GREEN)[Done]$(RESET)"
 
 run: $(NAME)
