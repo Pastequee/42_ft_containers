@@ -7,10 +7,18 @@
 #include <vector>
 #include <string>
 #include <cassert>
+#include <vector>
+#include <stack>
 
 #include "core/Test.h"
 #include "core/Config.h"
 #include "color.h"
+
+#ifndef MODE_STD
+# define LIB std
+#else
+# define LIB ft
+#endif
 
 #define assert_str(s1, s2) \
 	(strcmp(s1, s2) != 0 ? \

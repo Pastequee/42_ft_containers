@@ -15,14 +15,15 @@ bool	launch_test(Test* test, Config& config)
 
 void	run_tests(std::vector<Test*> tests, Config& config)
 {
-	uint		i, j, failed;
+	uint		i, failed;
 	double		total_time;
 	Test*		test;
 
-	i = failed = total_time = j = 0;
+	i = failed = total_time = 0;
 	std::cout << "    " GREEN "Starting" RESET " " << tests.size() << " tests\n";
 	std::cout << "------------\n";
 	std::vector<Test*>::iterator it = tests.begin();
+	test = NULL;
 	for (; it != tests.end(); it++) {
 		test = *it;
 		launch_test(test, config);
@@ -30,7 +31,7 @@ void	run_tests(std::vector<Test*> tests, Config& config)
 		total_time += test->getTime();
 		if (config.doStopOnFail() && test->isFailed()) break;
 	}
-	if (config.doStopOnFail() && it != tests.end() && test->isFailed())
+	if (config.doStopOnFail() && it != tests.end() && test && test->isFailed())
 		std::cout << RED "Canceling due to test failure" RESET "\n";
 	std::cout << "------------\n";
 	i = (it - tests.begin()) + 1;

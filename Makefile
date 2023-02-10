@@ -42,6 +42,10 @@ ifeq ($(FASAN),true)
 	CFLAGS += -fsanitize=address
 endif
 
+ifeq (std, $(filter std,$(MAKECMDGOALS)))
+	VFLAGS	+= -D MODE_STD
+endif
+
 ### INCLUDES ###
 OBJ_DIR		= bin
 SRC_DIR		= src
