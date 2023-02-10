@@ -6,6 +6,7 @@
 #include <sys/time.h>
 #include <vector>
 #include <string>
+#include <cassert>
 
 #include "core/Test.h"
 #include "core/Config.h"
@@ -19,3 +20,6 @@
 void	run_tests(std::vector<Test*> tests, Config& config);
 void __assert_str_rtn(const char *s1, const char *s2, const char *file,
 						const char *function, int line);
+
+void	test_stack(void);
+void	test_stack_operators(void);

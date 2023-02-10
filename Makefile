@@ -55,6 +55,7 @@ T_SRCS	=	tests/main.cpp \
 			tests/core/Test.cpp \
 			tests/core/Config.cpp \
 			tests/core/run_tests.cpp \
+			tests/stack.cpp \
 
 ### OBJECTS ###
 OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
@@ -100,7 +101,7 @@ $(OBJ_DIR)/$(TEST_DIR)/%.o: $(TEST_DIR)/%.cpp
 	@echo "$(PROJECT): $(BLUE)Creating test object file -> $(WHITE)$(notdir $@)... $(GREEN)[Done]$(RESET)"
 
 $(TEST): $(NAME) $(T_OBJS)
-	@$(CC) $(CFLAGS) $(LFLAGS) -L. $(T_OBJS) -l$(PROJECT) -o $(TEST)
+	@$(CC) $(CFLAGS) $(LFLAGS) $(T_OBJS) -o $(TEST)
 	@echo "$(PROJECT): $(BLUE)Test binary created -> $(WHITE)$(notdir $@)... $(GREEN)[Done]$(RESET)"
 
 run: $(NAME)
