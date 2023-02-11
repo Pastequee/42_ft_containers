@@ -7,6 +7,7 @@
 #include <sys/time.h>
 #include <sys/wait.h>
 #include <iomanip>
+#include <cstdlib>
 
 #include "Config.h"
 #include "color.h"
