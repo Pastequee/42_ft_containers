@@ -60,6 +60,7 @@ T_SRCS	=	tests/main.cpp \
 			tests/core/Config.cpp \
 			tests/core/run_tests.cpp \
 			tests/stack.cpp \
+			tests/vector.cpp \
 
 ### OBJECTS ###
 OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))

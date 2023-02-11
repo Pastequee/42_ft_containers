@@ -3,7 +3,7 @@
 #include <memory>
 
 namespace ft {
-	template<class T, class Alloc = std::allocator<T> >
+	template<class T, class Allocator = std::allocator<T> >
 	class vector {
 		public:
 			// Types definition
@@ -17,7 +17,7 @@ namespace ft {
 			typedef std::reverse_iterator<iterator>			reverse_iterator;
 			typedef std::reverse_iterator<const_iterator>	const_reverse_iterator;
 			typedef size_t									size_type;
-			typedef Alloc								allocator_type;
+			typedef Allocator								allocator_type;
 
 			// Constructors
 			vector(void): vector(0) {}
@@ -35,12 +35,12 @@ namespace ft {
 
 			// Member operators
 			vector&		operator=(const vector& src);
-			friend bool	operator==(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
-			friend bool	operator!=(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
-			friend bool	operator<(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
-			friend bool	operator<=(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
-			friend bool	operator>(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
-			friend bool	operator>=(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
+			friend bool	operator==(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
+			friend bool	operator!=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
+			friend bool	operator<(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
+			friend bool	operator<=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
+			friend bool	operator>(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
+			friend bool	operator>=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
 
 			// Member functions
 			//   -- Element access
@@ -93,21 +93,21 @@ namespace ft {
 			allocator_type	allocator;
 	};
 	// Operators
-	template<class T, class Alloc>
-	bool	operator==(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
+	template<class T, class Allocator>
+	bool	operator==(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
 
-	template<class T, class Alloc>
-	bool	operator!=(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
+	template<class T, class Allocator>
+	bool	operator!=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
 
-	template<class T, class Alloc>
-	bool	operator<(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
+	template<class T, class Allocator>
+	bool	operator<(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
 
-	template<class T, class Alloc>
-	bool	operator<=(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
+	template<class T, class Allocator>
+	bool	operator<=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
 
-	template<class T, class Alloc>
-	bool	operator>(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
+	template<class T, class Allocator>
+	bool	operator>(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
 
-	template<class T, class Alloc>
-	bool	operator>=(const ft::vector<T, Alloc>& v1, const ft::vector<T, Alloc>& v2);
+	template<class T, class Allocator>
+	bool	operator>=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
 }

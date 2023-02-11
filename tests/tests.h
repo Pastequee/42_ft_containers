@@ -31,3 +31,4 @@ void __assert_str_rtn(const char *s1, const char *s2, const char *file,
 
 void	test_stack(void);
 void	test_stack_operators(void);
+void	test_vector(void);
