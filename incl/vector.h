@@ -39,7 +39,7 @@ namespace ft {
 			: _capacity(count), _size(count), allocator(alloc)
 			{
 				this->_data = this->allocator.allocate(this->_capacity * sizeof(value_type));
-				for(size_type i=0; i < count; i++) {
+				for(size_type i=0; i < this->_size; i++) {
 					allocator.construct(&this->_data[i], value);
 				}
 			}
@@ -67,7 +67,7 @@ namespace ft {
 				this->allocator = src.allocator;
 				this->_data = this->allocator.allocate(this->_capacity * sizeof(value_type));
 				for (size_type i=0; i < this->_size; i++) {
-					this->_data[i] = src._data[i];
+					allocator.construct(&this->_data[i], src._data[i]);
 				}
 				return *this;
 			}
@@ -128,7 +128,7 @@ namespace ft {
 				if (new_cap > this->_capacity) {
 					pointer		tmp_data = this->allocator.allocate(new_cap * sizeof(value_type));
 					for (size_type i=0; i < this->_size; i++) {
-						tmp_data[i] = this->_data[i];				
+						allocator.construct(&tmp_data, this->_data[i]);
 					}
 					this->allocator.deallocate(this->_data, this->_capacity * sizeof(value_type));
 					this->_data = tmp_data;
@@ -156,11 +156,12 @@ namespace ft {
 				if (this->_size == this->_capacity) {
 					this->reserve(this->_size * 2);
 				}
-				this->_data[this->_size++] = value;
+				this->allocator.construct(&this->_data[this->_size++], value);
 			}
 			void		pop_back(void)
 			{
-				this->allocator.destroy(this->_data[--this->_size]);
+				this->allocator.destroy(this->_data[this->_size]);
+				this->_size--;
 			}
 			void		resize(size_type count);  // TODO
 			void		resize(size_type count, value_type value = value_type());  // TODO
