@@ -2,29 +2,53 @@
 #include "vector.h"
 #include <stdexcept>
 
-class Testi
+void	test_vector_operators(void)
 {
-	public:
-		Testi(void) {
-			std::cout << "Default constructor\n";
-		}
-		Testi(const Testi& test) {
-			std::cout << "Copy constructor\n";
-		}
-		~Testi(void) {
-			std::cout << "Destructor\n";
-		}
-		const Testi&	operator=(const Testi& test) {
-			std::cout << "Copy assignmenet operator\n";
-			return *this;
-		}
-};
+	LIB::vector<int> v1(5);
+	LIB::vector<int> v2(5);
+
+	assert(v1 == v2);
+	assert(!(v1 != v2));
+	assert(!(v1 < v2));
+	assert(v1 <= v2);
+	assert(!(v1 > v2));
+	assert(v1 >= v2);
+
+	v1 = LIB::vector<int>(5);
+	v2 = LIB::vector<int>(7);
+
+	assert(!(v1 == v2));
+	assert(v1 != v2);
+	assert(v1 < v2);
+	assert(v1 <= v2);
+	assert(!(v1 > v2));
+	assert(!(v1 >= v2));
+
+	v1 = LIB::vector<int>(7);
+	v2 = LIB::vector<int>(6);
+
+	assert(!(v1 == v2));
+	assert(v1 != v2);
+	assert(!(v1 < v2));
+	assert(!(v1 <= v2));
+	assert(v1 > v2);
+	assert(v1 >= v2);
+
+	v2.push_back(1);
+
+	assert(!(v1 == v2));
+	assert(v1 != v2);
+	assert(v1 < v2);
+	assert(v1 <= v2);
+	assert(!(v1 > v2));
+	assert(!(v1 >= v2));
+}
 
 void	test_vector(void)
 {
-	ft::vector<Testi>* v1 = new ft::vector<Testi>(5);
-	delete v1;
+	LIB::vector<int> v1(5);
 
+	v1 = LIB::vector<int>(3);
 	assert(false);
 }
 

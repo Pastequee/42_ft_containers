@@ -14,11 +14,7 @@
 #include "core/Config.h"
 #include "color.h"
 
-#ifndef MODE_STD
-# define LIB std
-#else
-# define LIB ft
-#endif
+#define LIB ft
 
 #define assert_str(s1, s2) \
 	(strcmp(s1, s2) != 0 ? \
@@ -32,3 +28,4 @@ void __assert_str_rtn(const char *s1, const char *s2, const char *file,
 void	test_stack(void);
 void	test_stack_operators(void);
 void	test_vector(void);
+void	test_vector_operators(void);

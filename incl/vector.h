@@ -36,12 +36,11 @@ namespace ft {
 			}
 
 			explicit vector(size_type count, const_reference value = value_type(), const allocator_type& alloc = allocator_type())
-			: _capacity(count), _size(count), allocator(alloc)
+			: _capacity(count), _size(0), allocator(alloc)
 			{
 				this->_data = this->allocator.allocate(this->_capacity * sizeof(value_type));
-				for(size_type i=0; i < this->_size; i++) {
-					allocator.construct(&this->_data[i], value);
-				}
+				while(this->_size < this->_capacity)
+					this->push_back(value);
 			}
 
 			vector(const vector& other)
@@ -53,22 +52,18 @@ namespace ft {
 			vector(InputIt first, InputIt last, const Allocator& alloc = Allocator()); // TODO
 
 			~vector(void) {
-				for (size_type i=0; i < this->_size; i++) {
-					this->allocator.destroy(&this->_data[i]);
-				}
+				this->clear();
 				this->allocator.deallocate(this->_data, this->_capacity * sizeof(value_type));
 			}
 
 			// Member operators
 			vector&			operator=(const vector& src)
 			{
-				this->_size = src._size;
-				this->_capacity = src._size;
+				this->clear();
+				this->reserve(src._size);
 				this->allocator = src.allocator;
-				this->_data = this->allocator.allocate(this->_capacity * sizeof(value_type));
-				for (size_type i=0; i < this->_size; i++) {
-					allocator.construct(&this->_data[i], src._data[i]);
-				}
+				while (this->_size < src._size)
+					this->push_back(src._data[this->_size]);
 				return *this;
 			}
 
@@ -76,22 +71,16 @@ namespace ft {
 
 			const_reference	operator[](size_type pos) const { return this->_data[pos]; }
 
-			template<class V, class Alloc>
-			friend bool	operator==(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
-			template<class V, class Alloc>
-			friend bool	operator!=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
-			template<class V, class Alloc>
-			friend bool	operator<(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
-			template<class V, class Alloc>
-			friend bool	operator<=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
-			template<class V, class Alloc>
-			friend bool	operator>(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
-			template<class V, class Alloc>
-			friend bool	operator>=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
-
 			// Member functions
 			//   -- Element access
-			void			assign(size_type count, const_reference value); // TODO
+			void			assign(size_type count, const_reference value)
+			{
+				this->clear();
+				this->reserve(count);
+				for (size_type i=0; i < count; i++)
+					this->push_back(value);
+			}
+
 			template<class InputIt>
 			void			assign(InputIt first, InputIt last); // TODO
 			allocator_type	get_allocator() const { return this->allocator; }
@@ -116,11 +105,11 @@ namespace ft {
 			const_pointer	data(void) const { return this->_data; }
 
 			//   -- Iterators
-			iterator				begin();  // TODO
-			const_iterator			begin() const;  // TODO
-			iterator				end();  // TODO
-			const_iterator			end() const;  // TODO
-			reverse_iterator		rbegin();  // TODO
+			iterator				begin() { return _data; }
+			const_iterator			begin() const { return _data; }
+			iterator				end() { return _data + _size; }
+			const_iterator			end() const { return _data + _size; }
+			reverse_iterator		rbegin(); // TODO
 			const_reverse_iterator	rbegin() const;  // TODO
 			reverse_iterator		rend();  // TODO
 			const_reverse_iterator	rend() const;  // TODO
@@ -129,27 +118,26 @@ namespace ft {
 			bool		empty(void) const { return this->_size == 0; }
 			size_type	size(void) const { return this->_size; }
 			size_type	max_size(void) const { return std::numeric_limits<size_type>::max(); }
+
 			void		reserve(size_type new_cap)
 			{
 				if (new_cap > this->_capacity) {
-					pointer		tmp_data = this->allocator.allocate(new_cap * sizeof(value_type));
-					for (size_type i=0; i < this->_size; i++) {
-						allocator.construct(&tmp_data, this->_data[i]);
-					}
-					this->allocator.deallocate(this->_data, this->_capacity * sizeof(value_type));
-					this->_data = tmp_data;
+					pointer		tmp_data = this->_data;
+					this->_data = this->allocator.allocate(new_cap * sizeof(value_type));
+					for (size_type i=0; i < this->_size; i++)
+						this->push_back(tmp_data[i]);
+					this->allocator.deallocate(tmp_data, this->_capacity * sizeof(value_type));
 					this->_capacity = new_cap;
 				}
 			}
+
 			size_type	capacity(void) const { return this->_capacity; }
 
 			//   -- Modifiers
 			void		clear(void)
 			{
-				for (size_type i=0; i < this->_size; i++) {
-					this->allocator.destroy(this->_data[i]);
-				}
-				_size = 0;
+				while (this->_size > 0)
+					this->pop_back();
 			}
 			iterator	insert(const_iterator pos, const_reference value);  // TODO
 			iterator	insert(const_iterator pos, size_type count, const_reference value);  // TODO
@@ -157,21 +145,47 @@ namespace ft {
 			iterator	insert(const_iterator pos, InputIt first, InputIt last); // TODO
 			iterator	erase(iterator pos); // TODO
 			iterator	erase(iterator first, iterator last); // TODO
+
 			void		push_back(const_reference value)
 			{
-				if (this->_size == this->_capacity) {
+				if (this->_size == this->_capacity)
 					this->reserve(this->_size * 2);
-				}
-				this->allocator.construct(&this->_data[this->_size++], value);
+				this->allocator.construct(&this->_data[this->_size], value);
+				this->_size++;
 			}
+
 			void		pop_back(void)
 			{
-				this->allocator.destroy(this->_data[this->_size]);
+				this->allocator.destroy(&this->back());
 				this->_size--;
 			}
-			void		resize(size_type count);  // TODO
-			void		resize(size_type count, value_type value = value_type());  // TODO
-			void		swap(vector& other);  // TODO
+
+			void		resize(size_type count, value_type value = value_type())
+			{
+				while (count < this->_size)
+					this->pop_back();
+				reserve(count);
+				while (count > this->_size)
+					this->push_back(value);
+			}
+
+			void		swap(vector& other)
+			{
+				pointer			tmp_data = this->_data;
+				size_type		tmp_capacity = this->_capacity;
+				size_type		tmp_size = this->type;
+				allocator_type	tmp_allocator = this->allocator;
+
+				this->allocator = other.allocator;
+				this->_data = other._data;
+				this->_size = other._size;
+				this->_capacity = other._capacity;
+
+				other.allocator = tmp_allocator;
+				other._capacity = tmp_capacity;
+				other._size = tmp_size;
+				other._data = tmp_data;
+			}
 
 		protected:
 			size_type		_capacity;
@@ -179,22 +193,43 @@ namespace ft {
 			pointer			_data;
 			allocator_type	allocator;
 	};
+
 	// Operators
 	template<class V, class Alloc>
-	bool	operator==(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
+	bool	operator==(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2)
+	{
+		if (v1.size() != v2.size())
+			return (false);
+		return std::equal(v1.begin(), v1.end(), v2.begin());
+	}
 
 	template<class V, class Alloc>
-	bool	operator!=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
+	bool	operator!=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2)
+	{
+		return !(v1 == v2);
+	}
 
 	template<class V, class Alloc>
-	bool	operator<(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
+	bool	operator<(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2)
+	{
+		return std::lexicographical_compare(v1.begin(), v1.end(), v2.begin(), v2.end());
+	}
 
 	template<class V, class Alloc>
-	bool	operator<=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
+	bool	operator<=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2)
+	{
+		return !(v2 < v1);
+	}
 
 	template<class V, class Alloc>
-	bool	operator>(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
+	bool	operator>(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2)
+	{
+		return v2 < v1;
+	}
 
 	template<class V, class Alloc>
-	bool	operator>=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
+	bool	operator>=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2)
+	{
+		return !(v1 < v2);
+	}
 }

@@ -7,6 +7,7 @@ int	main(void)
 
 	tests.push_back(new Test("stack::test_stack", &test_stack));
 	tests.push_back(new Test("stack::test_stack_operators", &test_stack_operators));
+	tests.push_back(new Test("vector::test_vector_operators", &test_vector_operators));
 	tests.push_back(new Test("vector::test_vector", &test_vector));
 	config.setStopOnFail(false);
 	run_tests(tests, config);
