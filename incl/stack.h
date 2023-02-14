@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <vector>
 #include "vector.h"
 
 namespace ft {
@@ -15,15 +16,20 @@ namespace ft {
 			typedef Container	container_type;
 
 			// Constructors
-			explicit stack(const container_type& cont = container_type()): c(cont) {}
+			explicit stack(const container_type& cont = container_type()): c(cont) {
+				std::cout << "Contructor called\n";
+			}
 			~stack(void) {}
 
 			// Member Operators
 			stack&		operator=(const stack& src)
 			{
+				std::cout << "Assign Contructor called\n";
 				this->c = src.c;
+				std::cout << "Size: " << src.c.size() << std::endl;
 				return *this;
 			}
+
 			template<class S, class Cont>
 			friend bool	operator==(const ft::stack<S, Cont>& s1, const ft::stack<S, Cont>& s2);
 			template<class S, class Cont>

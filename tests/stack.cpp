@@ -6,6 +6,7 @@ void	test_stack(void)
 	ft::stack<int>	s;
 
 	assert(s.empty());
+	assert(s.size() == 0);
 	s.push(1);
 	s.push(2);
 	s.push(3);
@@ -13,9 +14,12 @@ void	test_stack(void)
 	assert(s.top() == 3);
 	assert(s.size() == 3);
 	s.pop();
+	assert(!s.empty());
 	assert(s.top() == 2);
 	assert(s.size() == 2);
 	s.pop();
+	assert(s.size() == 1);
+	// s = ft::stack<int>();
 	assert(s.size() == 1);
 	s.pop();
 	assert(s.size() == 0);
