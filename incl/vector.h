@@ -76,12 +76,18 @@ namespace ft {
 
 			const_reference	operator[](size_type pos) const { return this->_data[pos]; }
 
-			friend bool		operator==(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
-			friend bool		operator!=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
-			friend bool		operator<(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
-			friend bool		operator<=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
-			friend bool		operator>(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
-			friend bool		operator>=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);
+			template<class V, class Alloc>
+			friend bool	operator==(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
+			template<class V, class Alloc>
+			friend bool	operator!=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
+			template<class V, class Alloc>
+			friend bool	operator<(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
+			template<class V, class Alloc>
+			friend bool	operator<=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
+			template<class V, class Alloc>
+			friend bool	operator>(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
+			template<class V, class Alloc>
+			friend bool	operator>=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);
 
 			// Member functions
 			//   -- Element access
@@ -174,21 +180,21 @@ namespace ft {
 			allocator_type	allocator;
 	};
 	// Operators
-	template<class T, class Allocator>
-	bool	operator==(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);  // TODO
+	template<class V, class Alloc>
+	bool	operator==(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
 
-	template<class T, class Allocator>
-	bool	operator!=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);  // TODO
+	template<class V, class Alloc>
+	bool	operator!=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
 
-	template<class T, class Allocator>
-	bool	operator<(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);  // TODO
+	template<class V, class Alloc>
+	bool	operator<(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
 
-	template<class T, class Allocator>
-	bool	operator<=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);  // TODO
+	template<class V, class Alloc>
+	bool	operator<=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
 
-	template<class T, class Allocator>
-	bool	operator>(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);  // TODO
+	template<class V, class Alloc>
+	bool	operator>(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
 
-	template<class T, class Allocator>
-	bool	operator>=(const ft::vector<T, Allocator>& v1, const ft::vector<T, Allocator>& v2);  // TODO
+	template<class V, class Alloc>
+	bool	operator>=(const ft::vector<V, Alloc>& v1, const ft::vector<V, Alloc>& v2);  // TODO
 }

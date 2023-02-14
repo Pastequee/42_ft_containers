@@ -24,12 +24,18 @@ namespace ft {
 				this->c = src.c;
 				return *this;
 			}
-			friend bool	operator==(const ft::stack<T, Container>& s1, const ft::stack<T, Container>& s2) { return s1.c == s2.c; }
-			friend bool	operator!=(const ft::stack<T, Container>& s1, const ft::stack<T, Container>& s2) { return s1.c != s2.c; }
-			friend bool	operator<(const ft::stack<T, Container>& s1, const ft::stack<T, Container>& s2) { return s1.c < s2.c; }
-			friend bool	operator<=(const ft::stack<T, Container>& s1, const ft::stack<T, Container>& s2) { return s1.c <= s2.c; }
-			friend bool	operator>(const ft::stack<T, Container>& s1, const ft::stack<T, Container>& s2) { return s1.c > s2.c; }
-			friend bool	operator>=(const ft::stack<T, Container>& s1, const ft::stack<T, Container>& s2) { return s1.c >= s2.c; }
+			template<class S, class Cont>
+			friend bool	operator==(const ft::stack<S, Cont>& s1, const ft::stack<S, Cont>& s2);
+			template<class S, class Cont>
+			friend bool	operator!=(const ft::stack<S, Cont>& s1, const ft::stack<S, Cont>& s2);
+			template<class S, class Cont>
+			friend bool	operator<(const ft::stack<S, Cont>& s1, const ft::stack<S, Cont>& s2);
+			template<class S, class Cont>
+			friend bool	operator<=(const ft::stack<S, Cont>& s1, const ft::stack<S, Cont>& s2);
+			template<class S, class Cont>
+			friend bool	operator>(const ft::stack<S, Cont>& s1, const ft::stack<S, Cont>& s2);
+			template<class S, class Cont>
+			friend bool	operator>=(const ft::stack<S, Cont>& s1, const ft::stack<S, Cont>& s2);
 
 			// Member functions
 			reference		top(void) { return this->c.back(); }
