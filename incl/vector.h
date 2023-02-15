@@ -30,29 +30,29 @@ namespace ft {
 			vector(void)
 			: _size(0), _capacity(0), allocator()
 			{
-				this->_data = this->allocator.allocate(this->_capacity * sizeof(value_type));
+				_data = allocator.allocate(_capacity * sizeof(value_type));
 			}
 
 			explicit vector(const allocator_type& alloc)
 			: _size(0), _capacity(0), allocator(alloc)
 			{
-				this->_data = this->allocator.allocate(this->_capacity * sizeof(value_type));
+				_data = allocator.allocate(_capacity * sizeof(value_type));
 			}
 
 			explicit vector(size_type count, const_reference value = value_type(), const allocator_type& alloc = allocator_type())
 			: _size(0), _capacity(count), allocator(alloc)
 			{
-				if (count > this->max_size())
+				if (count > max_size())
 					throw std::length_error("cannot create ft::vector larger than max_size()");
-				this->_data = this->allocator.allocate(this->_capacity * sizeof(value_type));
-				while(this->_size < this->_capacity)
-					this->push_back(value);
+				_data = allocator.allocate(_capacity * sizeof(value_type));
+				while(_size < _capacity)
+					push_back(value);
 			}
 
 			vector(const vector& other)
 			: _size(0), _capacity(0), allocator()
 			{
-				this->_data = this->allocator.allocate(this->_capacity * sizeof(value_type));
+				_data = allocator.allocate(_capacity * sizeof(value_type));
 				*this = other;
 			}
 
@@ -61,8 +61,8 @@ namespace ft {
 
 			~vector(void)
 			{
-				this->clear();
-				this->allocator.deallocate(this->_data, this->_capacity * sizeof(value_type));
+				clear();
+				allocator.deallocate(_data, _capacity * sizeof(value_type));
 			}
 
 			// Member operators
@@ -70,27 +70,27 @@ namespace ft {
 			{
 				if (&src != this)
 				{
-					this->clear();
-					this->reserve(src._size);
-					this->allocator = src.allocator;
-					while (this->_size < src._size)
-						this->push_back(src._data[this->_size]);
+					clear();
+					reserve(src._size);
+					allocator = src.allocator;
+					while (_size < src._size)
+						push_back(src._data[_size]);
 				}
 				return *this;
 			}
 
-			reference		operator[](size_type pos) { return this->_data[pos]; }
+			reference		operator[](size_type pos) { return _data[pos]; }
 
-			const_reference	operator[](size_type pos) const { return this->_data[pos]; }
+			const_reference	operator[](size_type pos) const { return _data[pos]; }
 
 			// Member functions
 			//   -- Element access
 			void			assign(size_type count, const_reference value)
 			{
-				this->clear();
-				this->reserve(count);
+				clear();
+				reserve(count);
 				for (size_type i=0; i < count; i++)
-					this->push_back(value);
+					push_back(value);
 			}
 
 			template<class InputIt>
@@ -99,24 +99,24 @@ namespace ft {
 
 			reference		at(size_type pos)
 			{
-				if (pos >= this->_size)
+				if (pos >= _size)
 					throw std::out_of_range("vector");
-				return this->_data[pos];
+				return _data[pos];
 			}
 
 			const_reference	at(size_type pos) const
 			{
-				if (pos >= this->_size)
+				if (pos >= _size)
 					throw std::out_of_range("vector");
-				return this->_data[pos];
+				return _data[pos];
 			}
 
-			reference		front() { return this->_data[0]; }
-			const_reference	front() const { return this->_data[0]; }
-			reference		back() { return this->_data[this->_size - 1]; }
-			const_reference	back() const { return this->_data[this->_size - 1]; }
-			pointer	 		data(void) { return this->_data; }
-			const_pointer	data(void) const { return this->_data; }
+			reference		front() { return _data[0]; }
+			const_reference	front() const { return _data[0]; }
+			reference		back() { return _data[_size - 1]; }
+			const_reference	back() const { return _data[_size - 1]; }
+			pointer	 		data(void) { return _data; }
+			const_pointer	data(void) const { return _data; }
 
 			//   -- Iterators
 			iterator				begin() { return _data; }
@@ -129,29 +129,29 @@ namespace ft {
 			const_reverse_iterator	rend() const;  // TODO
 
 			//   -- Capacity
-			bool		empty(void) const { return this->_size == 0; }
-			size_type	size(void) const { return this->_size; }
+			bool		empty(void) const { return _size == 0; }
+			size_type	size(void) const { return _size; }
 			size_type	max_size(void) const { return std::numeric_limits<size_type>::max(); }
 
 			void		reserve(size_type new_cap)
 			{
-				if (new_cap > this->_capacity) {
-					pointer		tmp_data = this->_data;
-					this->_data = this->allocator.allocate(new_cap * sizeof(value_type));
-					for (size_type i=0; i < this->_size; i++)
-						this->allocator.construct(this->_data + i, tmp_data[i]);
-					this->allocator.deallocate(tmp_data, this->_capacity * sizeof(value_type));
-					this->_capacity = new_cap;
+				if (new_cap > _capacity) {
+					pointer		tmp_data = _data;
+					_data = allocator.allocate(new_cap * sizeof(value_type));
+					for (size_type i=0; i < _size; i++)
+						allocator.construct(_data + i, tmp_data[i]);
+					allocator.deallocate(tmp_data, _capacity * sizeof(value_type));
+					_capacity = new_cap;
 				}
 			}
 
-			size_type	capacity(void) const { return this->_capacity; }
+			size_type	capacity(void) const { return _capacity; }
 
 			//   -- Modifiers
 			void		clear(void)
 			{
-				while (this->_size > 0)
-					this->pop_back();
+				while (_size > 0)
+					pop_back();
 			}
 
 			iterator	insert(const_iterator pos, const_reference value);  // TODO
@@ -163,40 +163,40 @@ namespace ft {
 
 			void		push_back(const_reference value)
 			{
-				if (this->_size == this->_capacity)
-					this->reserve(std::max(this->_size * 2, (size_type)1));
-				this->allocator.construct(&this->_data[this->_size], value);
-				this->_size++;
+				if (_size == _capacity)
+					reserve(std::max(_size * 2, (size_type)1));
+				allocator.construct(&_data[_size], value);
+				_size++;
 			}
 
 			void		pop_back(void)
 			{
-				if (this->_size != 0) {
-					this->allocator.destroy(&this->back());
-					this->_size--;
+				if (_size != 0) {
+					allocator.destroy(&back());
+					_size--;
 				}
 			}
 
 			void		resize(size_type count, value_type value = value_type())
 			{
-				while (count < this->_size)
-					this->pop_back();
+				while (count < _size)
+					pop_back();
 				reserve(count);
-				while (count > this->_size)
-					this->push_back(value);
+				while (count > _size)
+					push_back(value);
 			}
 
 			void		swap(vector& other)
 			{
-				pointer			tmp_data = this->_data;
-				size_type		tmp_capacity = this->_capacity;
-				size_type		tmp_size = this->type;
-				allocator_type	tmp_allocator = this->allocator;
+				pointer			tmp_data = _data;
+				size_type		tmp_capacity = _capacity;
+				size_type		tmp_size = _size;
+				allocator_type	tmp_allocator = allocator;
 
-				this->allocator = other.allocator;
-				this->_data = other._data;
-				this->_size = other._size;
-				this->_capacity = other._capacity;
+				allocator = other.allocator;
+				_data = other._data;
+				_size = other._size;
+				_capacity = other._capacity;
 
 				other.allocator = tmp_allocator;
 				other._capacity = tmp_capacity;
