@@ -107,7 +107,7 @@ $(OBJ_DIR)/$(TEST_DIR)/%.o: $(TEST_DIR)/%.cpp
 
 $(TEST): $(NAME) $(T_OBJS)
 	@$(CC) $(CFLAGS) $(LFLAGS) $(T_OBJS) -o $(TEST)
-	@echo "$(PROJECT): $(BLUE)Test binary created -> $(WHITE)$(notdir $@)... $(GREEN)[Done]$(RESET)"
+	@echo "$(PROJECT): $(GREEN)Test binary created -> $(WHITE)$@$(RESET)"
 
 run: $(NAME)
 	@./$(NAME) $(ARGS)

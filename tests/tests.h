@@ -14,7 +14,7 @@
 #include "core/Config.h"
 #include "color.h"
 
-#define LIB std
+#define LIB ft
 
 #define assert_str(s1, s2) \
 	(strcmp(s1, s2) != 0 ? \
@@ -29,5 +29,7 @@ void	test_stack(void);
 void	test_stack_operators(void);
 void	test_vector(void);
 void	test_vector_operators(void);
-void	test_vector_constructor(void);
-void	test_vector_manipulation(void);
+void	test_vector_constructors(void);
+void	test_vector_push_back(void);
+void	test_vector_pop_back(void);
+void	test_vector_clear(void);
