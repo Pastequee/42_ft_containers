@@ -47,6 +47,7 @@ void	test_vector_operators(void)
 void	test_vector_constructors(void)
 {
 	LIB::vector<std::string>	v1;
+	assert(v1.empty());
 	assert(v1.size() == 0);
 	assert(v1.capacity() == 0);
 
@@ -79,7 +80,6 @@ void	test_vector_constructors(void)
 	assert(v3.capacity() == 5);
 	assert(v4.size() == 5);
 	assert(v4.capacity() == 5);
-	
 
 	v2 = LIB::vector<std::string>();
 	assert(v2.size() == 0);
@@ -91,7 +91,9 @@ void	test_vector_push_back(void)
 {
 	LIB::vector<int>	v;
 
+	assert(v.empty());
 	v.push_back(1);
+	assert(!v.empty());
 	assert(v.size() == 1);
 	assert(v.capacity() == 1);
 	v.push_back(2);
@@ -116,9 +118,11 @@ void	test_vector_push_back(void)
 	assert(v.size() == 5);
 	assert(v.capacity() == 16);
 	v.resize(0);
+	assert(v.empty());
 	assert(v.size() == 0);
 	assert(v.capacity() == 16);
 	v.resize(50);
+	assert(!v.empty());
 	assert(v.size() == 50);
 	assert(v.capacity() == 50);
 	v.clear();
@@ -164,6 +168,80 @@ void	test_vector_clear(void)
 	v.clear();
 	assert(v.size() == 0);
 	assert(v.capacity() == 4);
+}
+
+void	test_vector_front_back_data(void)
+{
+	LIB::vector<int>	v;
+
+	v.push_back(1);
+	assert(v.front() == 1);
+	assert(v.back() == 1);
+	assert(v.data()[0] == 1);
+	v.push_back(2);
+	assert(v.front() == 1);
+	assert(v.back() == 2);
+	assert(v.data()[0] == 1);
+	assert(v.data()[1] == 2);
+	v.push_back(3);
+	v.push_back(4);
+	v.push_back(5);
+	v.push_back(6);
+	v.push_back(7);
+	assert(v.front() == 1);
+	assert(v.back() == 7);
+	v.clear();
+	v.push_back(10);
+	assert(v.front() == 10);
+	assert(v.back() == 10);
+}
+
+void	test_vector_resize_reserve(void)
+{
+	void*				p;
+	LIB::vector<int>	v;
+
+	v.reserve(50);
+	assert(v.size() == 0);
+	assert(v.capacity() == 50);
+
+	p = v.data();
+	v.reserve(20);
+	assert(v.data() == p);
+	assert(v.size() == 0);
+	assert(v.capacity() == 50);
+
+	p = v.data();
+	v.reserve(50);
+	assert(v.data() == p);
+	assert(v.size() == 0);
+	assert(v.capacity() == 50);
+
+	v.resize(30, 5);
+	assert(v.data() == p);
+	assert(v.front() == 5);
+	assert(v.back() == 5);
+	assert(v.size() == 30);
+	assert(v.capacity() == 50);
+
+	v.reserve(60);
+	assert(v.data() != p);
+	assert(v.front() == 5);
+	assert(v.back() == 5);
+	assert(v.size() == 30);
+	assert(v.capacity() == 60);
+
+	v.resize(20, 1);
+	assert(v.front() == 5);
+	assert(v.back() == 5);
+	assert(v.size() == 20);
+	assert(v.capacity() == 60);
+
+	v.resize(70, 10);
+	assert(v.front() == 5);
+	assert(v.back() == 10);
+	assert(v.size() == 70);
+	assert(v.capacity() == 70);
 }
 
 void	test_vector(void)

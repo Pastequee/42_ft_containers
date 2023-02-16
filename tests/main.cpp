@@ -13,7 +13,8 @@ int	main(void)
 	tests.push_back(new Test("vector::test_vector_push_back", &test_vector_push_back));
 	tests.push_back(new Test("vector::test_vector_pop_back", &test_vector_pop_back));
 	tests.push_back(new Test("vector::test_vector_clear", &test_vector_clear));
-	config.setStopOnFail(false);
+	tests.push_back(new Test("vector::test_vector_resize_reserve", &test_vector_resize_reserve));
+	config.setStopOnFail(true);
 	run_tests(tests, config);
 	return (0);
 }

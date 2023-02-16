@@ -111,12 +111,12 @@ namespace ft {
 				return _data[pos];
 			}
 
-			reference		front() { return _data[0]; }
-			const_reference	front() const { return _data[0]; }
-			reference		back() { return _data[_size - 1]; }
-			const_reference	back() const { return _data[_size - 1]; }
-			pointer	 		data(void) { return _data; }
-			const_pointer	data(void) const { return _data; }
+			reference				front() { return _data[0]; }
+			const_reference			front() const { return _data[0]; }
+			reference				back() { return _data[_size - 1]; }
+			const_reference			back() const { return _data[_size - 1]; }
+			pointer	 				data(void) { return _data; }
+			const_pointer			data(void) const { return _data; }
 
 			//   -- Iterators
 			iterator				begin() { return _data; }
@@ -131,6 +131,7 @@ namespace ft {
 			//   -- Capacity
 			bool		empty(void) const { return _size == 0; }
 			size_type	size(void) const { return _size; }
+			size_type	capacity(void) const { return _capacity; }
 			size_type	max_size(void) const { return std::numeric_limits<size_type>::max(); }
 
 			void		reserve(size_type new_cap)
@@ -144,8 +145,6 @@ namespace ft {
 					_capacity = new_cap;
 				}
 			}
-
-			size_type	capacity(void) const { return _capacity; }
 
 			//   -- Modifiers
 			void		clear(void)

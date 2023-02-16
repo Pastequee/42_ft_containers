@@ -33,3 +33,5 @@ void	test_vector_constructors(void);
 void	test_vector_push_back(void);
 void	test_vector_pop_back(void);
 void	test_vector_clear(void);
+void	test_vector_front_back_data(void);
+void	test_vector_resize_reserve(void);
