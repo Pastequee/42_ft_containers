@@ -30,7 +30,7 @@ endif
 ifeq ($(FEXTRA),true)
 	CFLAGS	+= -Wshadow -Wpedantic -Wuninitialized -Wmissing-include-dirs -Wundef -Winvalid-pch
 	CFLAGS	+= -Winit-self -Wswitch-enum -Wswitch-default -Wformat=2 -Wformat-nonliteral -Wformat-security -Wformat-y2k
-	CFLAGS	+= -Wdouble-promotion -Wfloat-equal -Wpointer-arith
+	CFLAGS	+= -Wdouble-promotion -Wfloat-equal -Wpointer-arith -Wno-self-assign-overloaded
 endif
 
 ifeq ($(FDEBUG),true)

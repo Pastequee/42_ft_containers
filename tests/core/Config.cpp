@@ -36,7 +36,7 @@ void	Config::setStopOnFail(bool val)
 	this->stop_on_fail = val;
 }
 
-void	Config::setTimeout(uint timeout)
+void	Config::setTimeout(uint new_timeout)
 {
-	this->timeout = timeout;
+	this->timeout = new_timeout;
 }
