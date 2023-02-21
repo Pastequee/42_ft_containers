@@ -14,7 +14,7 @@
 #include "core/Config.h"
 #include "color.h"
 
-#ifndef MODE_STD
+#ifdef MODE_STD
 # define LIB std
 #else
 # define LIB ft
@@ -39,3 +39,5 @@ void	test_vector_pop_back(void);
 void	test_vector_clear(void);
 void	test_vector_front_back_data(void);
 void	test_vector_resize_reserve(void);
+void	test_pair_contructors(void);
+void	test_pair_operators(void);

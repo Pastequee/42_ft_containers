@@ -6,9 +6,9 @@ int	main(void)
 	std::vector<Test*>	tests;
 
 	#ifdef MODE_STD
-	std::cout << "Test running with the std namespace\n";
+	std::cout << "Tests running with the std namespace\n";
 	#else
-	std::cout << "Test running with the ft namespace\n";
+	std::cout << "Tests running with the ft namespace\n";
 	#endif
 	// tests.push_back(new Test("stack::test_stack", &test_stack));
 	// tests.push_back(new Test("stack::test_stack_operators", &test_stack_operators));
@@ -19,6 +19,8 @@ int	main(void)
 	tests.push_back(new Test("vector::test_vector_pop_back", &test_vector_pop_back));
 	tests.push_back(new Test("vector::test_vector_clear", &test_vector_clear));
 	tests.push_back(new Test("vector::test_vector_resize_reserve", &test_vector_resize_reserve));
+	tests.push_back(new Test("vector::test_pair_constructors", &test_pair_contructors));
+	tests.push_back(new Test("vector::test_pair_operators", &test_pair_operators));
 	config.setStopOnFail(true);
 	run_tests(tests, config);
 	return (0);
