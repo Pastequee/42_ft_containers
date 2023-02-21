@@ -118,6 +118,8 @@ val: $(NAME)
 test: $(TEST)
 	@./$(TEST)
 
+std: ;
+
 info:
 	@echo "$(BLUE)NAME$(RESET): $(NAME)"
 	@echo "$(BLUE)CFLAGS$(RESET): $(CFLAGS)"

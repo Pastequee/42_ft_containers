@@ -5,6 +5,11 @@ int	main(void)
 	Config				config;
 	std::vector<Test*>	tests;
 
+	#ifdef MODE_STD
+	std::cout << "Test running with the std namespace\n";
+	#else
+	std::cout << "Test running with the ft namespace\n";
+	#endif
 	// tests.push_back(new Test("stack::test_stack", &test_stack));
 	// tests.push_back(new Test("stack::test_stack_operators", &test_stack_operators));
 	tests.push_back(new Test("vector::test_vector", &test_vector));

@@ -14,7 +14,11 @@
 #include "core/Config.h"
 #include "color.h"
 
-#define LIB ft
+#ifndef MODE_STD
+# define LIB std
+#else
+# define LIB ft
+#endif
 
 #define assert_str(s1, s2) \
 	(strcmp(s1, s2) != 0 ? \
