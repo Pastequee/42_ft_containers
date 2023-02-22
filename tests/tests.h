@@ -41,3 +41,6 @@ void	test_vector_front_back_data(void);
 void	test_vector_resize_reserve(void);
 void	test_pair_contructors(void);
 void	test_pair_operators(void);
+void	test_reverse_iterator_constructors(void);
+void	test_reverse_iterator_operations(void);
+void	test_reverse_iterator_operators(void);
