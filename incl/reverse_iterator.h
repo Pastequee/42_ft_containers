@@ -23,18 +23,41 @@ namespace ft {
 
 			// Operators
 			template<class U>
-			reverse_iterator&	operator=(const reverse_iterator<U>& other) { current = other.current; return *this; }
-			reference			operator*(void) const { return *current; }
-			pointer				operator->(void) const { return &(*current); }
-			reference			operator[](difference_type n) const { return *(current - n); }
-			reverse_iterator&	operator++(void) { --current; return *this; }
-			reverse_iterator&	operator--(void) { ++current; return *this; }
-			reverse_iterator	operator++(int) { reverse_iterator	tmp = *this; ++(*this); return tmp; }
-			reverse_iterator	operator--(int) { reverse_iterator	tmp = *this; --(*this); return tmp; }
-			reverse_iterator	operator+(difference_type n) const { return reverse_iterator(current - n); }
-			reverse_iterator	operator-(difference_type n) const { return reverse_iterator(current + n); }
-			reverse_iterator&	operator+=(difference_type n) { current -= n; return *this; }
-			reverse_iterator&	operator-=(difference_type n) { current += n; return *this; }
+			reverse_iterator&	operator=(const reverse_iterator<U>& other)
+			{ current = other.current; return *this; }
+
+			reference			operator*(void) const
+			{ return *current; }
+
+			pointer				operator->(void) const
+			{ return &(*current); }
+
+			reference			operator[](difference_type n) const
+			{ return *(current - n); }
+
+			reverse_iterator&	operator++(void)
+			{ --current; return *this; }
+
+			reverse_iterator&	operator--(void)
+			{ ++current; return *this; }
+
+			reverse_iterator	operator++(int)
+			{ reverse_iterator	tmp = *this; ++(*this); return tmp; }
+
+			reverse_iterator	operator--(int)
+			{ reverse_iterator	tmp = *this; --(*this); return tmp; }
+
+			reverse_iterator	operator+(difference_type n) const
+			{ return reverse_iterator(current - n); }
+
+			reverse_iterator	operator-(difference_type n) const
+			{ return reverse_iterator(current + n); }
+
+			reverse_iterator&	operator+=(difference_type n)
+			{ current -= n; return *this; }
+
+			reverse_iterator&	operator-=(difference_type n)
+			{ current += n; return *this; }
 
 			// Member functions
 			iterator_type	base(void) const { return current; }

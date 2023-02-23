@@ -1,5 +1,6 @@
 #include "tests.h"
 #include "reverse_iterator.h"
+#include "pair.h"
 #include <cassert>
 
 void	test_reverse_iterator_constructors(void)
@@ -27,7 +28,24 @@ void	test_reverse_iterator_constructors(void)
 
 void	test_reverse_iterator_operations(void)
 {
-	// TODO
+	int	tab[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+	LIB::reverse_iterator<int*>	rev_it1(tab);
+	std::cout << "Val: " << *rev_it1 << std::endl;
+	assert(*rev_it1 == 1);
+	rev_it1--;
+	assert(*rev_it1 == 2);
+	--rev_it1;
+	assert(*rev_it1 == 3);
+	rev_it1++;
+	assert(*rev_it1 == 2);
+	++rev_it1;
+	assert(*rev_it1 == 1);
+
+	LIB::pair<int, int>	p[12];
+	LIB::reverse_iterator<LIB::pair<int, int>*>	rev_it2(p);
+	assert(rev_it2->first == 0);
+	assert(rev_it2->second == 0);
 }
 
 void	test_reverse_iterator_operators(void)
