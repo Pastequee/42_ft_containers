@@ -19,6 +19,7 @@ int	main(void)
 	tests.push_back(new Test("vector::test_vector_pop_back", &test_vector_pop_back));
 	tests.push_back(new Test("vector::test_vector_clear", &test_vector_clear));
 	tests.push_back(new Test("vector::test_vector_resize_reserve", &test_vector_resize_reserve));
+	tests.push_back(new Test("vector::test_vector_insert", &test_vector_insert));
 	tests.push_back(new Test("pair::test_pair_constructors", &test_pair_contructors));
 	tests.push_back(new Test("pair::test_pair_operators", &test_pair_operators));
 	tests.push_back(new Test("reverse_iterator::test_reverse_iterator_constructors", &test_reverse_iterator_constructors));

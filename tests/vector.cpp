@@ -1,5 +1,6 @@
 #include "tests.h"
 #include "vector.h"
+#include <cassert>
 #include <stdexcept>
 
 void	test_vector_operators(void)
@@ -244,9 +245,40 @@ void	test_vector_resize_reserve(void)
 	assert(v.capacity() == 70);
 }
 
+void	test_vector_insert(void)
+{
+	LIB::vector<int>	v1(3, 100);
+
+	assert(*v1.insert(v1.begin(), 200) == 200);
+	assert(v1.size() == 4);
+	assert(v1.capacity() == 6);
+	assert(v1.front() == 200);
+	assert(v1.back() == 100);
+
+	assert(*v1.insert(v1.end(), 300) == 300);
+	assert(v1.size() == 5);
+	assert(v1.capacity() == 6);
+	assert(v1.back() == 300);
+
+	v1.insert(v1.end(), 10, 400);
+	assert(v1.size() == 15);
+	assert(v1.capacity() == 15);
+	assert(v1.back() == 400);
+
+	v1.insert(v1.end(), 5, 500);
+	assert(v1.size() == 20);
+	assert(v1.capacity() == 30);
+	assert(v1.back() == 500);
+}
+
 void	test_vector(void)
 {
-	// LIB::vector<int>*	v1 = new LIB::vector<int>(12971713419411875792375927589758);
 	// assert(false);
 }
+
+
+// TODO test assign with iterators
+// TODO test constructor with iterators
+// TODO test reverse iterators (and iterators)
+// TODO test iterator insert
 

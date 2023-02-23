@@ -1,7 +1,7 @@
 PROJECT	= ft_containers
 
 ### COMPILATION ###
-CC		= c++
+CC		= clang++
 AR		= ar rcs
 CFLAGS	= -Wall -Wextra -std=c++98
 CFLAGS	+= -MMD -MP
