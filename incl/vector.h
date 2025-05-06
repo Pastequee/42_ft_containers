@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <limits>
 #include <memory>
 #include <stdexcept>
@@ -56,8 +57,15 @@ namespace ft {
 				*this = other;
 			}
 
-			template<class InputIt>
-			vector(InputIt first, InputIt last, const Allocator& alloc = Allocator()); // TODO
+			// TODO need enable_if to work
+			// template<class InputIt>
+			// vector(InputIt first, InputIt last, const Allocator& alloc = Allocator())
+			// : _size(0), _capacity(0), allocator(alloc)
+			// {
+			// 	reserve(last - first);
+			// 	for (; first < last; first++)
+			// 		push_back(*first);
+			// }
 
 			~vector(void)
 			{
@@ -94,7 +102,14 @@ namespace ft {
 			}
 
 			template<class InputIt>
-			void			assign(InputIt first, InputIt last); // TODO
+			void			assign(InputIt first, InputIt last)
+			{
+				clear();
+				reserve(last - first);
+				for (; first < last; first++)
+					push_back(*first);
+			}
+
 			allocator_type	get_allocator() const { return this->allocator; }
 
 			reference		at(size_type pos)
@@ -123,10 +138,10 @@ namespace ft {
 			const_iterator			begin() const { return _data; }
 			iterator				end() { return _data + _size; }
 			const_iterator			end() const { return _data + _size; }
-			reverse_iterator		rbegin(); // TODO
-			const_reverse_iterator	rbegin() const;  // TODO
-			reverse_iterator		rend();  // TODO
-			const_reverse_iterator	rend() const;  // TODO
+			reverse_iterator		rbegin() { return reverse_iterator(--end()); }
+			const_reverse_iterator	rbegin() const { return reverse_iterator(--end()); }
+			reverse_iterator		rend() { return reverse_iterator(--begin()); }
+			const_reverse_iterator	rend() const {return reverse_iterator(--begin()); }
 
 			//   -- Capacity
 			bool		empty(void) const { return _size == 0; }
@@ -153,12 +168,56 @@ namespace ft {
 					pop_back();
 			}
 
-			iterator	insert(const_iterator pos, const_reference value);  // TODO
-			iterator	insert(const_iterator pos, size_type count, const_reference value);  // TODO
-			template<class InputIt>
-			iterator	insert(const_iterator pos, InputIt first, InputIt last); // TODO
+			iterator	insert(const_iterator pos, const_reference value)
+			{
+				size_type	index = pos - begin();
+				insert(pos, 1, value);
+				return begin() + index;
+			}
+
+			void	insert(const_iterator pos, size_type count, const_reference value)
+			{
+				if (_size + count > _capacity) {
+					size_t	index = pos - begin();
+					if (_size + count > _size * 2)
+						reserve(_size + count);
+					else
+						reserve(_size * 2);
+					pos = begin() + index;
+				}
+				iterator	end = this->end() - 1;
+				for (; end >= pos; end--) {
+					allocator.construct(end + count, *end);
+					allocator.destroy(end);
+				}
+				for (size_type i=0; i < count; i++) {
+					allocator.construct(iterator(pos + i), value);
+					_size++;
+				}
+			}
+
+			// TODO need enable_if to work
+			// template<class InputIt>
+			// void	insert(const_iterator pos, InputIt first, InputIt last)
+			// {
+			// 	size_type	count = last - first;
+			// 	if (_size + count > _capacity) {
+			// 		size_t	index = pos - begin();
+			// 		reserve(_size + count);
+			// 		pos = begin() + index;
+			// 	}
+			// 	iterator	end = this->end() - 1;
+			// 	for (; end >= pos; end--) {
+			// 		allocator.construct(end + count, *end);
+			// 		allocator.destroy(end);
+			// 	}
+			// 	for (size_type i=0; first < last; first++, i++)
+			// 		allocator.construct(pos + i, *first);
+			// 	return pos;
+			// }
+
 			iterator	erase(iterator pos); // TODO
-			iterator	erase(iterator first, iterator last); // TODO
+			iterator	erase(iterator first, iterator last);
 
 			void		push_back(const_reference value)
 			{
